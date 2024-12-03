@@ -1,0 +1,26 @@
+﻿<Window x:Class="AhsTestWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AhsTestWpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="850">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Margin="5" Height="30">Input HTML to sanitize</Label>
+        <TextBox Grid.Row="1" Grid.Column="0" x:Name="SaniTextInput" TextWrapping="Wrap" AcceptsReturn="True"  Height="200" Width="700" Margin="5"></TextBox>
+        <Label Grid.Column="0" Grid.Row="2" Margin="5" Height="30">Result</Label>
+        <TextBox Grid.Row="3" Grid.Column="0" x:Name="SaniTextOutput" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Height="200" Width="700" Margin="5"></TextBox>
+        <Button x:Name="SanitizeBtn" Grid.Column="1" Grid.Row="0" Content="Sanitize" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="5" Click="SantizeBtn_OnClick"/>
+    </Grid>
+</Window>

@@ -2,36 +2,36 @@
 
   <PropertyGroup>
     <Description>Cleans HTML from constructs that can be used for cross-site scripting (XSS)</Description>
-    <Copyright>Copyright 2013-$([System.DateTime]::Now.Year) Michael Ganss</Copyright>
+    <Copyright>Copyright 2024-2024 Davyd Arutyunyan</Copyright>
     <AssemblyTitle>HtmlSanitizer</AssemblyTitle>
     <AppVeyor_Build_Version Condition="'$(APPVEYOR_BUILD_VERSION)' == ''">1.0.0</AppVeyor_Build_Version>
     <AssemblyVersion>8.0.0.0</AssemblyVersion>
     <InformationalVersion>$(AppVeyor_Build_Version)</InformationalVersion>
     <FileVersion>$(AppVeyor_Build_Version).0</FileVersion>
     <PackageVersion>$(AppVeyor_Build_Version)</PackageVersion>
-    <Authors>Michael Ganss</Authors>
-    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
-    <AssemblyName>HtmlSanitizer</AssemblyName>
-    <AssemblyOriginatorKeyFile>HtmlSanitizer.snk</AssemblyOriginatorKeyFile>
+    <Authors>Michael Ganss, Davyd Arutyunyan</Authors>
+    <TargetFrameworks>netstandard2.0;net6.0;net6.0-windows;net8.0;net8.0-windows;net481</TargetFrameworks>
+    <AssemblyOriginatorKeyFile>ahs_ca_ad.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <PackageId>HtmlSanitizer</PackageId>
+    <PackageId>AdvancedHtmlSanitizer</PackageId>
     <PackageTags>xss;anti;antixss;html;security</PackageTags>
-    <PackageProjectUrl>https://github.com/mganss/HtmlSanitizer</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Daedroth/AdvancedHtmlSanitizer</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<RepositoryType>git</RepositoryType>
-    <RepositoryUrl>git://github.com/mganss/HtmlSanitizer</RepositoryUrl>
-    <RootNamespace>Ganss.Xss</RootNamespace>
+    <RepositoryUrl>https://github.com/Daedroth/AdvancedHtmlSanitizer.git</RepositoryUrl>
+    <RootNamespace>Ahs</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\HtmlSanitizer.xml</DocumentationFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>default</LangVersion>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
+    <Company>CatOnPillow</Company>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(CI)' == 'True'">
@@ -41,6 +41,7 @@
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="[0.17.1]" />
     <PackageReference Include="AngleSharp.Css" Version="[0.17.0]" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.71" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
   </ItemGroup>

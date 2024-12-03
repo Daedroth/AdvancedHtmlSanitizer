@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
 using AngleSharp;
 using AngleSharp.Css;
 using AngleSharp.Css.Dom;
@@ -5,9 +9,6 @@ using AngleSharp.Css.Parser;
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
 using Xunit;
 
 // Tests based on tests from http://roadkill.codeplex.com/
@@ -16,7 +17,7 @@ using Xunit;
 // https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet#RULE_.232_-_Attribute_Escape_Before_Inserting_Untrusted_Data_into_HTML_Common_Attributes
 // and http://ha.ckers.org/xss.html
 
-namespace Ganss.Xss.Tests;
+namespace Ahs.Tests;
 
 public class HtmlSanitizerFixture
 {
@@ -2584,7 +2585,7 @@ rl(javascript:alert(""foo""))'>";
         var actual = s.SanitizeDocument(html);
 
         // Assert
-        Assert.Equal(html, actual);
+        Assert.Equal(html, (string)actual);
     }
 
     [Fact]
@@ -2596,7 +2597,7 @@ rl(javascript:alert(""foo""))'>";
         var actual = s.SanitizeDocument(html);
 
         // Assert
-        Assert.Equal("<html><head></head><body><div>Test</div></body></html>", actual);
+        Assert.Equal((string)"<html><head></head><body><div>Test</div></body></html>", (string)actual);
     }
 
     [Fact]
@@ -2608,7 +2609,7 @@ rl(javascript:alert(""foo""))'>";
         var actual = s.Sanitize(html);
 
         // Assert
-        Assert.Equal("<div>Test</div>", actual);
+        Assert.Equal((string)"<div>Test</div>", (string)actual);
     }
 
     [Fact]
@@ -2621,7 +2622,7 @@ rl(javascript:alert(""foo""))'>";
         var actual = s.SanitizeDocument(html);
 
         // Assert
-        Assert.Equal("<html><head><style>body { background-color: rgba(255, 255, 255, 1) }</style></head><body><div>Test</div></body></html>", actual);
+        Assert.Equal((string)"<html><head><style>body { background-color: rgba(255, 255, 255, 1) }</style></head><body><div>Test</div></body></html>", (string)actual);
     }
 
     [Fact]
@@ -2695,7 +2696,7 @@ nice-style: 12;
 @media (min-width: 100px) { div { color: rgba(0, 0, 0, 1) } }
 @page { margin-top: 2cm }
 @keyframes identifier { 0% { top: 0 } 50% { top: 30px; left: 20px } 50% { top: 10px } 100% { top: 0 } }</style></head><body></body></html>".Replace("\r\n", "\n"),
-            actual);
+            (string)actual);
     }
 
     [Fact]
@@ -2780,7 +2781,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
 
         var actual = sanitizer.Sanitize(html);
 
-        Assert.Equal(html, actual);
+        Assert.Equal(html, (string)actual);
     }
 
     [Fact]
@@ -2792,7 +2793,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = s.Sanitize(html);
 
         // Assert
-        Assert.Equal(html, actual);
+        Assert.Equal(html, (string)actual);
     }
 
     [Fact]
@@ -2804,7 +2805,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = s.Sanitize(html);
 
         // Assert
-        Assert.Equal("<p>Test</p>", actual);
+        Assert.Equal((string)"<p>Test</p>", (string)actual);
     }
 
     [Fact]
@@ -2818,7 +2819,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = s.Sanitize(html);
 
         // Assert
-        Assert.Equal("<p>abc</p>", actual);
+        Assert.Equal((string)"<p>abc</p>", (string)actual);
     }
 
     [Fact]
@@ -2832,7 +2833,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = s.Sanitize(html);
 
         // Assert
-        Assert.Equal("<p>xyz</p>", actual);
+        Assert.Equal((string)"<p>xyz</p>", (string)actual);
     }
 
     [Fact]
@@ -2846,7 +2847,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = s.Sanitize(html);
 
         // Assert
-        Assert.Equal(@"<input type=""text"" name=""my_name"" value=""&lt;insert name&gt;"">", actual);
+        Assert.Equal((string)@"<input type=""text"" name=""my_name"" value=""&lt;insert name&gt;"">", (string)actual);
     }
 
     [Fact]
@@ -2869,7 +2870,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = s.SanitizeDocument(html);
 
         // Assert
-        Assert.Equal(html, actual);
+        Assert.Equal(html, (string)actual);
     }
 
     public static IEnumerable<T> Shuffle<T>(IEnumerable<T> source, Random rng)
@@ -2944,7 +2945,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(@"<div class=""good bad"">Test</div>", actual);
+        Assert.Equal((string)@"<div class=""good bad"">Test</div>", (string)actual);
     }
 
     [Fact]
@@ -2962,7 +2963,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(@"<div class=""good"">Test</div>", actual);
+        Assert.Equal((string)@"<div class=""good"">Test</div>", (string)actual);
     }
 
     [Fact]
@@ -2973,8 +2974,8 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         {
             if (e.Attribute.Name == "class")
             {
-                e.Tag.ClassList.Remove(e.Tag.ClassList.Except(new[] { "good", "oktoo" }, StringComparer.OrdinalIgnoreCase).ToArray());
-                e.Cancel = e.Tag.ClassList.Any();
+                e.Tag.ClassList.Remove(Enumerable.Except(e.Tag.ClassList, new[] { "good", "oktoo" }, StringComparer.OrdinalIgnoreCase).ToArray());
+                e.Cancel = Enumerable.Any<string>(e.Tag.ClassList);
             }
         };
 
@@ -2982,7 +2983,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(@"<div class=""good"">Test</div>", actual);
+        Assert.Equal((string)@"<div class=""good"">Test</div>", (string)actual);
     }
 
     [Fact]
@@ -3000,7 +3001,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(@"<div>Test</div>", actual);
+        Assert.Equal((string)@"<div>Test</div>", (string)actual);
     }
 
     [Fact]
@@ -3021,7 +3022,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal("Test1 Test2 Test3 <b>Test4</b>", actual);
+        Assert.Equal((string)"Test1 Test2 Test3 <b>Test4</b>", (string)actual);
     }
 
     [Fact]
@@ -3034,7 +3035,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal("Test1 Test2 Test3 <b>Test4</b>", actual);
+        Assert.Equal((string)"Test1 Test2 Test3 <b>Test4</b>", (string)actual);
     }
 
     [Fact]
@@ -3043,7 +3044,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitizer = new HtmlSanitizer();
         sanitizer.PostProcessNode += (s, e) =>
         {
-            Assert.Single(e.Document.Body.ChildNodes);
+            Assert.Single((IEnumerable)e.Document.Body.ChildNodes);
             var text = e.Node as IText;
             Assert.NotNull(text);
             Assert.Equal("Test1Test2", text.NodeValue);
@@ -3054,7 +3055,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal("Test1Test2", actual);
+        Assert.Equal((string)"Test1Test2", (string)actual);
     }
 
     [Fact]
@@ -3068,7 +3069,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal("<!-- good comment -->", actual);
+        Assert.Equal((string)"<!-- good comment -->", (string)actual);
     }
 
     [Fact]
@@ -3096,7 +3097,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(html, actual);
+        Assert.Equal(html, (string)actual);
     }
 
     [Fact]
@@ -3112,7 +3113,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal("<svg>123</svg>", actual);
+        Assert.Equal((string)"<svg>123</svg>", (string)actual);
     }
 
     [Fact]
@@ -3128,7 +3129,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(html, actual);
+        Assert.Equal(html, (string)actual);
     }
 
     [Fact]
@@ -3144,7 +3145,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(@"<img src=""https://www.example.com/test.png"">", actual);
+        Assert.Equal((string)@"<img src=""https://www.example.com/test.png"">", (string)actual);
     }
 
 
@@ -3164,7 +3165,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.SanitizeDocument(stream);
 
         // Assert
-        Assert.Equal(html, actual);
+        Assert.Equal(html, (string)actual);
     }
 
     [Fact]
@@ -3180,7 +3181,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
 
         // Assert
         Assert.True(anyNodeRemoved);
-        Assert.Equal("<html><head></head></html>", actual);
+        Assert.Equal((string)"<html><head></head></html>", (string)actual);
     }
 
     [Fact]
@@ -3194,7 +3195,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var actual = sanitizer.SanitizeDocument(html);
 
         // Assert
-        Assert.Equal("<html><head></head><body></body></html>", actual);
+        Assert.Equal((string)"<html><head></head><body></body></html>", (string)actual);
     }
 
     [Fact]
@@ -3214,7 +3215,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var returnedDocument = sanitizer.SanitizeDom(document);
 
         // Assert
-        Assert.Equal("<html><head></head><body><div>hi</div></body></html>", returnedDocument.ToHtml());
+        Assert.Equal("<html><head></head><body><div>hi</div></body></html>", FormatExtensions.ToHtml(returnedDocument));
     }
 
     [Fact]
@@ -3234,7 +3235,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var returnedDocument = sanitizer.SanitizeDom(document, document.Body);
 
         // Assert
-        Assert.Equal("<html><head></head><body><div>hi</div></body></html>", returnedDocument.ToHtml());
+        Assert.Equal("<html><head></head><body><div>hi</div></body></html>", FormatExtensions.ToHtml(returnedDocument));
     }
 
     [Fact]
@@ -3248,7 +3249,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitized = sanitizer.Sanitize(html, "http://www.example.com");
 
         // Assert
-        Assert.Equal("aaabc<style>x[x=\"\\3c /style>\\3c img src onerror=alert(1)>\"] { }</style>", sanitized);
+        Assert.Equal((string)"aaabc<style>x[x=\"\\3c /style>\\3c img src onerror=alert(1)>\"] { }</style>", (string)sanitized);
     }
 
     [Fact]
@@ -3263,7 +3264,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitized = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal("<section></section>", sanitized);
+        Assert.Equal((string)"<section></section>", (string)sanitized);
         Assert.True(removingStyleTriggered);
     }
 
@@ -3275,7 +3276,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitized = Sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(@"<div style=""width: calc((600px - 300px) / 2)"">Test</div>", sanitized);
+        Assert.Equal((string)@"<div style=""width: calc((600px - 300px) / 2)"">Test</div>", (string)sanitized);
     }
 
     [Fact]
@@ -3286,7 +3287,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitized = Sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal("<span style=\"grid-template: none\"></span>", sanitized);
+        Assert.Equal((string)"<span style=\"grid-template: none\"></span>", (string)sanitized);
     }
 
     [Fact]
@@ -3298,7 +3299,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitized = s.Sanitize(html);
 
         // Assert
-        Assert.Equal("<div>This is <p>Paragraph</p></div>", sanitized);
+        Assert.Equal((string)"<div>This is <p>Paragraph</p></div>", (string)sanitized);
     }
 
     [Fact]
@@ -3321,7 +3322,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitized = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(html, sanitized);
+        Assert.Equal(html, (string)sanitized);
     }
 
     [Fact]
@@ -3334,7 +3335,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitized = sanitizer.SanitizeDocument(html);
 
         // Assert
-        Assert.Equal(html, sanitized);
+        Assert.Equal(html, (string)sanitized);
     }
 
     class SemicolonStyleFormatter : IStyleFormatter
@@ -3383,7 +3384,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitized = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(html, sanitized);
+        Assert.Equal(html, (string)sanitized);
     }
 
     [Fact]
@@ -3399,14 +3400,14 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
 
         var sanitized = sanitizer.Sanitize(html);
 
-        Assert.Equal(@"<p style=""color: #000000"">Text</p>", sanitized);
+        Assert.Equal((string)@"<p style=""color: #000000"">Text</p>", (string)sanitized);
 
         AngleSharp.Css.Values.Color.UseHex = false;
 
         sanitized = sanitizer.Sanitize(html);
 
         // Assert
-        Assert.Equal(@"<p style=""color: rgba(0, 0, 0, 1)"">Text</p>", sanitized);
+        Assert.Equal((string)@"<p style=""color: rgba(0, 0, 0, 1)"">Text</p>", (string)sanitized);
     }
 
     [Fact]
@@ -3431,7 +3432,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
 
         // Assert
         var expected = "<strong>Lorem ipsum</strong>";
-        Assert.Equal(expected, actual);
+        Assert.Equal(expected, (string)actual);
     }
 
     [Fact]
@@ -3444,7 +3445,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitized = sanitizer.Sanitize(html, "https://www.example.com");
         var expected = @"<div style=""background-color: rgba(0, 0, 0, 1)"">"
             + @"Test<img src=""https://www.example.com/test.png"" style=""margin: 10px""></div>";
-        Assert.Equal(expected, sanitized);
+        Assert.Equal(expected, (string)sanitized);
     }
 
     [Fact]
@@ -3463,7 +3464,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var allowedAttributes = HtmlSanitizerDefaults.AllowedAttributes;
         Assert.NotEmpty(allowedAttributes);
         var allowedClasses = HtmlSanitizerDefaults.AllowedClasses;
-        Assert.Empty(allowedClasses);
+        Assert.Empty((IEnumerable)allowedClasses);
     }
 
     [Fact]
@@ -3475,7 +3476,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var html = @"<noscript>&lt;/noscript&gt&lt;img src=x onerror=mxss(1)&gt;";
         var sanitized = sanitizer.Sanitize(html);
         var expected = @"<noscript>&lt;/noscript&gt&lt;img src=x onerror=mxss(1)&gt;</noscript>";
-        Assert.Equal(expected, sanitized);
+        Assert.Equal(expected, (string)sanitized);
     }
 
     [Fact]
@@ -3485,7 +3486,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitizer = new HtmlSanitizer();
         sanitizer.AllowedAttributes.Add("style");
         var sanitized = sanitizer.Sanitize(html);
-        Assert.Equal(html, sanitized);
+        Assert.Equal(html, (string)sanitized);
     }
 
     [Fact]
@@ -3495,7 +3496,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var html = @"<div style=""height: 0; background-image: url('https://example.com/1.jpg'), url('https://example.com/2.jpg'), url('https://example.com/3.jpg'); display: none;""/>";
         var sanitizer = new HtmlSanitizer();
         var sanitized = sanitizer.Sanitize(html);
-        Assert.Equal(@"<div style=""height: 0; background-image: url(&quot;https://example.com/1.jpg&quot;), url(&quot;https://example.com/2.jpg&quot;), url(&quot;https://example.com/3.jpg&quot;); display: none""></div>", sanitized);
+        Assert.Equal((string)@"<div style=""height: 0; background-image: url(&quot;https://example.com/1.jpg&quot;), url(&quot;https://example.com/2.jpg&quot;), url(&quot;https://example.com/3.jpg&quot;); display: none""></div>", (string)sanitized);
     }
 
     [Fact]
@@ -3508,7 +3509,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var bypass = @"<svg></p><title><xmp></title><img src=x onerror=alert(1)></xmp></title>";
         var sanitized = sanitizer.Sanitize(bypass, "https://www.example.com");
         var expected = @"<svg><p></p><title><xmp>&lt;/title&gt;&lt;img src=x onerror=alert(1)&gt;</xmp></title></svg>";
-        Assert.Equal(expected, sanitized);
+        Assert.Equal(expected, (string)sanitized);
     }
 
     [Fact]
@@ -3523,7 +3524,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var bypass = @"<form><math><mtext></form><form><mglyph><xmp></math><img src onerror=alert(1)>";
         var sanitized = sanitizer.Sanitize(bypass, "https://www.example.com");
         var expected = @"<form><math><mtext><form><mglyph><xmp>&lt;/math&gt;&lt;img src onerror=alert(1)&gt;</xmp></mglyph></form></mtext></math></form>";
-        Assert.Equal(expected, sanitized);
+        Assert.Equal(expected, (string)sanitized);
     }
 
     [Fact]
@@ -3536,7 +3537,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var bypass = @"<svg></p><title><noscript></title><img src=x onerror=alert(1)></noscript></title>";
         var sanitized = sanitizer.Sanitize(bypass, "https://www.example.com");
         var expected = "<svg><p></p><title><noscript>&lt;/title&gt;&lt;img src=x onerror=alert(1)&gt;</noscript></title></svg>";
-        Assert.Equal(expected, sanitized);
+        Assert.Equal(expected, (string)sanitized);
     }
 
     [Fact]
@@ -3550,7 +3551,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var bypass = @"<svg></p><style><!--</style><img src=x onerror=alert(1)>-->";
         var sanitized = sanitizer.Sanitize(bypass, "https://www.example.com");
         var expected = "<svg><p></p><style><!--&lt;/style&gt;&lt;img src=x onerror=alert(1)&gt;--></style></svg>";
-        Assert.Equal(expected, sanitized);
+        Assert.Equal(expected, (string)sanitized);
     }
 
     [Fact]
@@ -3565,7 +3566,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var bypass = @"<script><custom-element>abc</custom-element></script>";
         var sanitized = sanitizer.Sanitize(bypass);
         var expected = @"<script><custom-element>abc</custom-element></script>";
-        Assert.Equal(expected, sanitized);
+        Assert.Equal(expected, (string)sanitized);
     }
 
     [Fact]
@@ -3577,7 +3578,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitizer = new HtmlSanitizer();
         sanitizer.RemovingTag += (sender, args) => args.Cancel = true;
         var output = sanitizer.Sanitize(input);
-        Assert.Equal(@"<style>span>p { font-size: 2em }</style><span><p>I am safe</p></span>", output);
+        Assert.Equal((string)@"<style>span>p { font-size: 2em }</style><span><p>I am safe</p></span>", (string)output);
     }
 
     [Fact]
@@ -3587,7 +3588,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitizer = new HtmlSanitizer { KeepChildNodes = true };
         sanitizer.AllowedTags.Remove("iframe");
         var sanitized = sanitizer.Sanitize(input);
-        Assert.Equal("&lt;img&gt;&amp;lt;img&amp;gt;", sanitized);
+        Assert.Equal((string)"&lt;img&gt;&amp;lt;img&amp;gt;", (string)sanitized);
     }
 
     [Fact]
@@ -3597,7 +3598,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitizer = new HtmlSanitizer { AllowCssCustomProperties = true };
         sanitizer.AllowedTags.Remove("iframe");
         var sanitized = sanitizer.Sanitize(input);
-        Assert.Equal("<div style=\"--my-var: 1px\"></div>", sanitized);
+        Assert.Equal((string)"<div style=\"--my-var: 1px\"></div>", (string)sanitized);
     }
 
     [Fact]
@@ -3607,7 +3608,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitizer = new HtmlSanitizer { AllowCssCustomProperties = true };
         sanitizer.AllowedTags.Add("style");
         var sanitized = sanitizer.Sanitize(input);
-        Assert.Equal("<style>:root { --my-var: 1px }</style>", sanitized);
+        Assert.Equal((string)"<style>:root { --my-var: 1px }</style>", (string)sanitized);
     }
 
     [Fact]
@@ -3617,7 +3618,7 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitizer = new HtmlSanitizer();
         sanitizer.AllowedTags.Remove("iframe");
         var sanitized = sanitizer.Sanitize(input);
-        Assert.Equal("<div></div>", sanitized);
+        Assert.Equal((string)"<div></div>", (string)sanitized);
     }
 
     [Fact]
@@ -3627,6 +3628,6 @@ zqy1QY1kkPOuMvKWvvmFIwClI2393jVVcp91eda4+J+fIYDbfJa7RY5YcNrZhTuV//9k="">
         var sanitizer = new HtmlSanitizer();
         sanitizer.AllowedTags.Add("style");
         var sanitized = sanitizer.Sanitize(input);
-        Assert.Equal("<style>:root { }</style>", sanitized);
+        Assert.Equal((string)"<style>:root { }</style>", (string)sanitized);
     }
 }

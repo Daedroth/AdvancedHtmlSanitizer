@@ -1,9 +1,9 @@
-using AngleSharp.Css.Dom;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using AngleSharp.Css.Dom;
 
-namespace Ganss.Xss
+namespace Ahs
 {
     /// <summary>
     /// Default options.

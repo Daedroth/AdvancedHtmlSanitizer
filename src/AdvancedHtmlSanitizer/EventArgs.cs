@@ -1,11 +1,11 @@
-﻿using AngleSharp.Css.Dom;
-using AngleSharp.Dom;
-using AngleSharp.Html.Dom;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using AngleSharp.Css.Dom;
+using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
 
-namespace Ganss.Xss
+namespace Ahs
 {
     /// <summary>
     /// Provides data for the <see cref="HtmlSanitizer.PostProcessDom"/> event.

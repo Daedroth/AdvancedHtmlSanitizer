@@ -1,0 +1,6 @@
+﻿<Solution>
+  <Project Path="src\AdvancedHtmlSanitizer\AdvancedHtmlSanitizer.csproj" Type="Classic C#" />
+  <Project Path="src\AhsTestWpf\AhsTestWpf.csproj" Type="Classic C#" />
+  <Project Path="test\HtmlSanitizer.Benchmark\HtmlSanitizer.Benchmark.csproj" Type="Classic C#" />
+  <Project Path="test\HtmlSanitizer.Tests\HtmlSanitizer.Tests.csproj" Type="Classic C#" />
+</Solution>

@@ -1,10 +1,3 @@
-using AngleSharp;
-using AngleSharp.Css;
-using AngleSharp.Css.Dom;
-using AngleSharp.Css.Parser;
-using AngleSharp.Dom;
-using AngleSharp.Html.Dom;
-using AngleSharp.Html.Parser;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,8 +5,15 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using AngleSharp;
+using AngleSharp.Css;
+using AngleSharp.Css.Dom;
+using AngleSharp.Css.Parser;
+using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
+using AngleSharp.Html.Parser;
 
-namespace Ganss.Xss
+namespace Ahs
 {
     /// <summary>
     /// Cleans HTML documents and fragments from constructs that can lead to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">XSS attacks</a>.
@@ -61,14 +61,14 @@ namespace Ganss.Xss
         private static readonly Regex CssExpression = new(@"[eE\uFF25\uFF45][xX\uFF38\uFF58][pP\uFF30\uFF50][rR\u0280\uFF32\uFF52][eE\uFF25\uFF45][sS\uFF33\uFF53]{2}[iI\u026A\uFF29\uFF49][oO\uFF2F\uFF4F][nN\u0274\uFF2E\uFF4E]", RegexOptions.Compiled);
         private static readonly Regex CssUrl = new(@"[Uu][Rr\u0280][Ll\u029F]\((['""]?)([^'"")]+)(['""]?)", RegexOptions.Compiled);
         private static readonly Regex WhitespaceRegex = new(@"\s*", RegexOptions.Compiled);
-        private static readonly IConfiguration defaultConfiguration = Configuration.Default.WithCss(new CssParserOptions
+        private static readonly IConfiguration DefaultConfiguration = Configuration.Default.WithCss(new CssParserOptions
         {
             IsIncludingUnknownDeclarations = true,
             IsIncludingUnknownRules = true,
             IsToleratingInvalidSelectors = true,
         });
 
-        private static readonly HtmlParser defaultHtmlParser = new(new HtmlParserOptions { IsScripting = true }, BrowsingContext.New(defaultConfiguration));
+        private static readonly HtmlParser DefaultHtmlParser = new(new HtmlParserOptions { IsScripting = true }, BrowsingContext.New(DefaultConfiguration));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HtmlSanitizer"/> class
@@ -126,7 +126,7 @@ namespace Ganss.Xss
         /// <summary>
         /// Gets or sets the default <see cref="Func{HtmlParser}"/> object that creates the parser used for parsing the input.
         /// </summary>
-        public static Func<HtmlParser> DefaultHtmlParserFactory { get; set; } = () => defaultHtmlParser;
+        public static Func<HtmlParser> DefaultHtmlParserFactory { get; set; } = () => DefaultHtmlParser;
 
         /// <summary>
         /// Gets or sets the <see cref="Func{HtmlParser}"/> object the creates the parser used for parsing the input.
@@ -874,7 +874,7 @@ namespace Ganss.Xss
             if (iri != null && !iri.IsAbsolute && !string.IsNullOrEmpty(baseUrl))
             {
                 // resolve relative URI
-                if (Uri.TryCreate(baseUrl, UriKind.Absolute, out Uri baseUri))
+                if (Uri.TryCreate(baseUrl, UriKind.Absolute, out var baseUri))
                 {
                     try
                     {

@@ -1,8 +1,8 @@
-using AngleSharp.Css.Dom;
 using System;
 using System.Collections.Generic;
+using AngleSharp.Css.Dom;
 
-namespace Ganss.Xss
+namespace Ahs
 {
     /// <summary>
     /// Provides options to be used with <see cref="HtmlSanitizer"/>.

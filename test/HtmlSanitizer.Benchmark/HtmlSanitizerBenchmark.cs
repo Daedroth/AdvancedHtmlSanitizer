@@ -1,11 +1,11 @@
 using BenchmarkDotNet.Attributes;
 
-namespace Ganss.Xss.Benchmark;
+namespace Ahs.Benchmark;
 
 [MemoryDiagnoser]
 public class HtmlSanitizerBenchmark
 {
-    private HtmlSanitizer _sanitizer = null!;
+    private Ahs.HtmlSanitizer _sanitizer = null!;
     private string _googleFileContent = null!;
     private string _largeFileContent = null!;
 
@@ -14,7 +14,7 @@ public class HtmlSanitizerBenchmark
     {
         _googleFileContent = File.ReadAllText("google.html");
         _largeFileContent = File.ReadAllText("ecmascript.html");
-        _sanitizer = new HtmlSanitizer();
+        _sanitizer = new Ahs.HtmlSanitizer();
     }
 
     /// <summary>

@@ -2,14 +2,17 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <SonarQubeExclude>true</SonarQubeExclude>
+    <AssemblyName>AdvancedHtmlSanitizer.Benchmark</AssemblyName>
+    <RootNamespace>Ahs.Benchmark</RootNamespace>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\HtmlSanitizer\HtmlSanitizer.csproj" />
+    <ProjectReference Include="..\..\src\AdvancedHtmlSanitizer\AdvancedHtmlSanitizer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

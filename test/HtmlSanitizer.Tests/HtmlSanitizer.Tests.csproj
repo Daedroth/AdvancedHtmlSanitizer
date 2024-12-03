@@ -1,10 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
-    <AssemblyName>HtmlSanitizer.Tests</AssemblyName>
+    <AssemblyName>AdvancedHtmlSanitizer.Tests</AssemblyName>
     <PackageId>HtmlSanitizer.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
@@ -14,14 +13,16 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>default</LangVersion>
 	<CoverletOutputFormat>opencover</CoverletOutputFormat>
 	<CoverletOutput>../../coverage.xml</CoverletOutput>
 	<SonarQubeExclude>true</SonarQubeExclude>
+	<RootNamespace>Ahs.Tests</RootNamespace>
+	<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\HtmlSanitizer\HtmlSanitizer.csproj" />
+    <ProjectReference Include="..\..\src\AdvancedHtmlSanitizer\AdvancedHtmlSanitizer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,13 +1,9 @@
-﻿using AngleSharp;
-using AngleSharp.Html;
-using AngleSharp.Dom;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Text;
-using System.Threading.Tasks;
+using AngleSharp.Dom;
+using AngleSharp.Html;
 
-namespace Ganss.Xss
+namespace Ahs
 {
     /// <summary>
     /// HTML5 markup formatter. Identical to <see cref="HtmlMarkupFormatter"/> except for &lt; and &gt; which are

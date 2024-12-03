@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using AngleSharp;
 using AngleSharp.Css.Dom;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
-namespace Ganss.Xss
+namespace Ahs
 {
     /// <summary>
     /// Enables an inheriting class to implement an HtmlSanitizer class, which cleans HTML documents and fragments
